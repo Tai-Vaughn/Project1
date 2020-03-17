@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+
+{% block main %}
+<div class>
+    <form method="POST" action="{{ url_for('profile')}}">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <h6> {{ form.lname.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please Enter Your Last Name</p>
+            {{form.lname(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.lname.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please Enter Your Last Name</p>
+            {{form.lname(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.gender.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please select your Gender</p>
+        {{form.gender(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.email.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please Enter Your email address</p>
+        {{form.email(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.location.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please Enter Your location</p>
+            {{form.location(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.biography.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <p>Please describe yourself</p>
+            {{form.biography(class="form-control d-flex col-5")}}
+        </div>
+        <div class="form-group">
+            <h6> {{ form.photo.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            {{form.photo}}
+        </div>
+
+        <button class="btn btn-primary">Add Profile</button>
+    </form>    
+</div>
+
+
+{% endblock %}
