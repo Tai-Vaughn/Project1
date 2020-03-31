@@ -12,6 +12,7 @@ from flask_mail import Message
 from werkzeug.utils import secure_filename
 from .forms import ContactForm
 from .model import UserProfile
+from .db_data import getdata
 from . import db
 
 ###
@@ -51,7 +52,12 @@ def profile():
             db.session.commit()
             flash('Email was sent!!')
             return redirect(url_for('home'))
-    return render_template ('profile.html', form=myform) 
+    return render_template ('profile.html', form=myform)
+
+@app.route('/profiles')
+def profiles():
+    user_records = getdata()
+    return render_template('profiles.html', data=user_records)
 ###
 # The functions below should be applicable to all Flask apps.
 ###
