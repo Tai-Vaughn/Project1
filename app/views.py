@@ -5,10 +5,14 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
+import os
 from  app import app
 from flask import render_template, request, redirect, url_for, flash
 from flask_mail import Message
+from werkzeug.utils import secure_filename
 from .forms import ContactForm
+from .model import UserProfile
+from . import db
 
 ###
 # Routing for your application.
@@ -29,12 +33,22 @@ def about():
 def profile():
     myform = ContactForm()
     if request.method == 'POST':
-        if myform.validate_on_submit():
-            email = myform.email.data
-            subject = myform.subject.data
-            textArea = myform.textArea.data
-            msg = Message(subject=subject,sender=email,body=textArea,recipients=["c830ceeaa4-9e2835@inbox.mailtrap.io"])
-            mail.send(msg)
+            photo = myform.photo.data 
+
+            filename = secure_filename(photo.filename)
+            path = os.path.join(
+                '.'+app.config['UPLOAD_FOLDER'], filename
+            )
+            photo.save(path)
+            photo.save(path)
+
+            user = UserProfile( 
+            fname=myform.fname.data,lname=myform.lname.data,
+            email= myform.email.data,gender=myform.gender.data, location=myform.location.data,
+            biography= myform.biography.data, photo=path)
+
+            db.session.add(user)
+            db.session.commit()
             flash('Email was sent!!')
             return redirect(url_for('home'))
     return render_template ('profile.html', form=myform) 
@@ -77,6 +91,14 @@ def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
 
-
+def  get_uploaded_images():
+    rootdir = os.getcwd()
+    links = []
+    for subdir, dirs, files in os.walk(rootdir + app.config['UPLOAD_FOLDER']):
+        for file in files:
+            links.append(file)
+        links.pop(links.index(".gitkeep"))
+        return links
+        
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8080")
