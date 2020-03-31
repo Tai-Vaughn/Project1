@@ -2,12 +2,12 @@ from . import db
 from werkzeug.security import generate_password_hash
 
 class UserProfile(db.Model):
-    __tablename__ = 'user_profiles'
+    # __tablename__ = 'user_profiles'
 
     id = db.Column(db.Integer, primary_key=True)
     fname = db.Column(db.String(80))
     lname = db.Column(db.String(80))
-    email = db.Column(db.String(80), unique=true)
+    email = db.Column(db.String(80), unique=True)
     gender = db.Column(db.String(5))
     location = db.Column(db.String(100))
     biography = db.Column(db.String(200))

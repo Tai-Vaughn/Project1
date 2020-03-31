@@ -2,12 +2,12 @@
 
 {% block main %}
 <div class>
-    <form method="POST" action="{{ url_for('profile')}}">
+    <form method="POST" action="{{ url_for('profile')}}" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <div class="form-group">
-            <h6> {{ form.lname.label}} <strong class="text-danger">(Required)</strong> </h6> 
+            <h6> {{ form.fname.label}} <strong class="text-danger">(Required)</strong> </h6> 
             <p>Please Enter Your Last Name</p>
-            {{form.lname(class="form-control d-flex col-5")}}
+            {{form.fname(class="form-control d-flex col-5")}}
         </div>
         <div class="form-group">
             <h6> {{ form.lname.label}} <strong class="text-danger">(Required)</strong> </h6> 
