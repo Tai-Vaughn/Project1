@@ -6,13 +6,14 @@ This file creates your application.
 """
 
 import os
+import datetime
 from  app import app
 from flask import render_template, request, redirect, url_for, flash
 from flask_mail import Message
 from werkzeug.utils import secure_filename
 from .forms import ContactForm
 from .model import UserProfile
-from .db_data import getdata
+from .db_data import getData, getUser
 from . import db
 
 ###
@@ -36,28 +37,33 @@ def profile():
     if request.method == 'POST':
             photo = myform.photo.data 
 
+            x = datetime.datetime.now()
+            joinDate = ""+x.strftime("%B")+" "+x.strftime("%d")+", "+x.strftime("%Y")
             filename = secure_filename(photo.filename)
-            path = os.path.join(
+            photo.save(os.path.join(
                 '.'+app.config['UPLOAD_FOLDER'], filename
-            )
-            photo.save(path)
-            photo.save(path)
+            ))
 
             user = UserProfile( 
             fname=myform.fname.data,lname=myform.lname.data,
             email= myform.email.data,gender=myform.gender.data, location=myform.location.data,
-            biography= myform.biography.data, photo=path)
+            biography= myform.biography.data, photo=filename, date=joinDate)
 
             db.session.add(user)
             db.session.commit()
-            flash('Email was sent!!')
-            return redirect(url_for('home'))
+            flash('Profile Added', 'success')
+            return redirect(url_for('profiles'))
     return render_template ('profile.html', form=myform)
 
 @app.route('/profiles')
 def profiles():
-    user_records = getdata()
+    user_records = getData()
     return render_template('profiles.html', data=user_records)
+
+@app.route('/profiles/<userid>')
+def user(userid):
+    user = getUser(userid);
+    return render_template('user.html', user=user) 
 ###
 # The functions below should be applicable to all Flask apps.
 ###

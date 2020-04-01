@@ -12,7 +12,8 @@ class UserProfile(db.Model):
     location = db.Column(db.String(100))
     biography = db.Column(db.String(200))
     photo = db.Column(db.String(80))
-    def __init__(self,fname,lname ,email ,gender , location, biography,photo):
+    joindate = db.Column(db.Date())
+    def __init__(self,fname,lname ,email ,gender , location, biography,photo,date):
         self.fname = fname
         self.lname = lname
         self.email = email
@@ -20,7 +21,7 @@ class UserProfile(db.Model):
         self.location = location
         self.biography = biography
         self.photo = photo
-        
+        self.joindate = date
 
     def is_authenticated(self):
         return True

@@ -1,8 +1,8 @@
 {% extends "base.html"%}
 
 {% block main %}
-<div class>
-    <form method="POST" action="{{ url_for('profile')}}" enctype="multipart/form-data">
+<div class="card container col-7">
+    <form class="card-body" method="POST" action="{{ url_for('profile')}}" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <div class="form-group">
             <h6> {{ form.fname.label}} <strong class="text-danger">(Required)</strong> </h6> 
