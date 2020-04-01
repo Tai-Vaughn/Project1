@@ -37,16 +37,14 @@ def profile():
             photo = myform.photo.data 
 
             filename = secure_filename(photo.filename)
-            path = os.path.join(
+            photo.save(os.path.join(
                 '.'+app.config['UPLOAD_FOLDER'], filename
-            )
-            photo.save(path)
-            photo.save(path)
+            ))
 
             user = UserProfile( 
             fname=myform.fname.data,lname=myform.lname.data,
             email= myform.email.data,gender=myform.gender.data, location=myform.location.data,
-            biography= myform.biography.data, photo=path)
+            biography= myform.biography.data, photo=filename)
 
             db.session.add(user)
             db.session.commit()

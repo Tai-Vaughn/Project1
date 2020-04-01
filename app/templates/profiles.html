@@ -2,7 +2,26 @@
 
 {% block main %}
 <div> 
+    <h2>Profiles</h2>
     {% for user in data %}
+        <div class="card container col-7 ml-0 mb-3">
+            <div class="card-header bg-primary ml-0 "></div>
+            <div class ="row">
+                <img class=""src="{{ url_for('static', filename= 'uploads/'+ user[7]) }}" height="150px" width="150px" >
+                <div class="columb col-5 mt-2">
+                    <h6><strong>{{user[1]}} {{user[2]}}</strong></h6>
+                    {% if user[4] == 'M' %}
+                    <i class="fas fa-user text-muted">  Male</i>
+                    {% elif user[4] == 'F' %}
+                    <i class="fas fa-user text-muted">  Female</i>
+                    {% else %}
+
+                    {% endif %}
+                </div>
+                <button class="btn btn-success my-5 px-5" >View Profile</button>
+            </div>
+            
+        </div>
         
     {%endfor%}
 </div>
