@@ -7,7 +7,7 @@ class ContactForm(FlaskForm):
     fname = StringField('First name', validators=[InputRequired()])
     lname = StringField('Last name', validators=[InputRequired()])
     email= StringField('Email',validators=[Email(),InputRequired()])
-    gender = SelectField ('Gender', choices=[('M','Male'),('F' , 'Female')])
+    gender = SelectField ('Gender', choices=[('O','Other'),('F' , 'Female'),('M','Male')])
     location = StringField('Location', validators=[InputRequired()])
     biography = TextAreaField('Biography', validators=[InputRequired])
     photo = FileField('Photo', validators=[FileRequired(),FileAllowed(['jpg', 'png'], 'Images only!')])

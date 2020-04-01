@@ -12,7 +12,7 @@ from flask_mail import Message
 from werkzeug.utils import secure_filename
 from .forms import ContactForm
 from .model import UserProfile
-from .db_data import getdata
+from .db_data import getData, getUser
 from . import db
 
 ###
@@ -54,8 +54,13 @@ def profile():
 
 @app.route('/profiles')
 def profiles():
-    user_records = getdata()
+    user_records = getData()
     return render_template('profiles.html', data=user_records)
+
+@app.route('/profiles/<id>')
+def user(id):
+    user = getUser(id);
+    return render_template('user.html', user=user) 
 ###
 # The functions below should be applicable to all Flask apps.
 ###

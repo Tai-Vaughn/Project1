@@ -1,0 +1,21 @@
+{% extends "base.html"%}
+
+{% block main %}
+    <div class= "card container col-6">
+        <div class ="row">
+            <img class=""src="{{ url_for('static', filename= 'uploads/'+ user[7]) }}" height="150px" width="150px" >
+            <div class="columb ml-3">
+                <h5 class="mb-3"><strong>{{user[1]}} {{user[2]}}</strong></h5>
+                <i class="fas fa-envelope-open-text mb-3 text-muted"> {{user[3]}}</i>
+                <div><i class="fas fa-map-marker-alt text-muted"> {{user[5]}}</i></div>
+            </div>
+        </div>
+        <h5 class="mt-4">About Me</h5>
+        <p>{{user[6]}}</p>
+        <div class="row ml-5">
+            <button class="btn btn-primary col-4 mr-5 "> Send Message</button>
+            <button class="btn btn-success col-4 ml-0">Follow</button>
+        </div>
+
+    </div>
+{% endblock %}
